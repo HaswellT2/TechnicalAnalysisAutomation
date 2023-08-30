@@ -4,13 +4,19 @@ import matplotlib.pyplot as plt
 import mplfinance as mpf
 from flags_pennants import find_flags_pennants_pips, find_flags_pennants_trendline
     
-
+"""
 data = pd.read_csv('BTCUSDT3600.csv')
 data['date'] = data['date'].astype('datetime64[s]')
 data = data.set_index('date')
+"""
+data = pd.read_csv('EURUSD_2.csv')
+data['Gmt time'] = pd.to_datetime(data['Gmt time'], format="%d.%m.%Y %H:%M:%S.%f")
+data['Gmt time'] = data['Gmt time'].astype('datetime64[ms]')
+data = data.set_index('Gmt time')
+
 
 data = np.log(data)
-dat_slice = data['close'].to_numpy()
+dat_slice = data['Close'].to_numpy()
 
 
 orders = list(range(3, 49))

@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import math
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
 from pip_pattern_miner import PIPPatternMiner
 from perceptually_important import find_pips
 
@@ -47,7 +47,6 @@ class WFPIPMiner:
         return self._curr_sig
 
 
-
 if __name__ == '__main__':
     data = pd.read_csv('BTCUSDT3600.csv')
     data['date'] = data['date'].astype('datetime64[s]')
@@ -70,7 +69,3 @@ if __name__ == '__main__':
     data['sig'] = sig
     data['r'] = data['close'].diff().shift(-1)
     data['sig_r'] = data['sig'] * data['r']
-
-
-
-

@@ -119,7 +119,7 @@ def get_trades_from_signal(data: pd.DataFrame, signal: np.array):
 
 
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
    
     # Trend following strategy
     data = pd.read_csv('BTCUSDT86400.csv')
@@ -134,4 +134,19 @@ if __name__ == '__main__':
 
     long_trades, short_trades = get_trades_from_signal(data, data['sr_signal'].to_numpy())
 
+    plt.show()
 
+#####
+data = pd.read_csv('BTCUSDT86400.csv')
+data['date'] = data['date'].astype('datetime64[s]')
+data = data.set_index('date')
+plt.style.use('dark_background') 
+levels = support_resistance_levels(data, 365, first_w=1.0, atr_mult=3.0)
+
+data['sr_signal'] = sr_penetration_signal(data, levels)
+data['log_ret'] = np.log(data['close']).diff().shift(-1)
+data['sr_return'] = data['sr_signal'] * data['log_ret']
+
+long_trades, short_trades = get_trades_from_signal(data, data['sr_signal'].to_numpy())
+
+plt.show()
